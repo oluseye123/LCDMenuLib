@@ -172,6 +172,7 @@ getLayer	KEYWORD2
 getCursorPos	KEYWORD2
 getChilds	KEYWORD2
 getCursorPosAbs	KEYWORD2
+getParentId	KEYWORD2
 
 # LCD class Methods
 setCursor	KEYWORD2
@@ -214,6 +215,17 @@ LCDML_DISP_update_cursor	KEYWORD2
 LCDML_DISP_update_menu_direct	KEYWORD2
 LCDML_lcd_menu_display	KEYWORD2
 LCDML_lcd_menu_clear	KEYWORD2
+
+LCDML_DISP_add_use_ram	KEYWORD2
+LCDML_DISP_addMenu_use_ram	KEYWORD2
+LCDML_DISP_addFunc_use_ram	KEYWORD2
+LCDML_DISP_addParam_use_ram	KEYWORD2
+LCDML_DISP_createMenu_use_ram	KEYWORD2
+LCDML_DISP_dynText	KEYWORD2
+LCDML_DISP_copyFlashContent	KEYWORD2
+LCDML_DISP_getRamContent	KEYWORD2
+
+
 
 g_lcdml_initscreen	LITERAL1
 
@@ -263,6 +275,8 @@ _LCDML_DISP_cfg_initscreen	LITERAL1
 _LCDML_DISP_cfg_initscreen_time	LITERAL1
 _LCDML_DISP_cfg_max_rows	LITERAL1
 _LCDML_DISP_cnt	LITERAL1
+_LCDML_DISP_cfg_cursor_deep	LITERAL1
+_LCDML_DISP_cfg_enable_use_ram_mode	LITERAL1
 
 
 #######################################

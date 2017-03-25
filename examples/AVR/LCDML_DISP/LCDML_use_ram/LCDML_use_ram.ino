@@ -17,7 +17,8 @@
   
   // lib config
   #define _LCDML_DISP_cfg_button_press_time          200    // button press time in ms
- 
+  #define _LCDML_DISP_cfg_enable_use_ram_mode        1      // this mode save the menu item strings in ram 
+                                                            // normaly the data is saved in flash 
 
 // ********************************************************************* 
 // LCDML TYPE SELECT
@@ -43,19 +44,24 @@
   
   // LCDMenuLib_add(id, group, prev_layer_element, new_element_num, lang_char_array, callback_function)
   LCDML_DISP_init(_LCDML_DISP_cnt);
-  LCDML_DISP_add (0  , _LCDML_G1  , LCDML_root        , 1  , "Information"        , LCDML_FUNC_information);
-  LCDML_DISP_add (1  , _LCDML_G1  , LCDML_root        , 2  , "Time info"          , LCDML_FUNC_timer_info);
-  LCDML_DISP_add (2  , _LCDML_G1  , LCDML_root        , 3  , "Settings"           , LCDML_FUNC);
-  LCDML_DISP_add (3  , _LCDML_G1  , LCDML_root_3      , 1  , "Change value"       , LCDML_FUNC);
-  LCDML_DISP_add (4  , _LCDML_G1  , LCDML_root_3      , 2  , "Something"          , LCDML_FUNC);
-  LCDML_DISP_add (5  , _LCDML_G1  , LCDML_root        , 4  , "Program"            , LCDML_FUNC);
-  LCDML_DISP_add (6  , _LCDML_G1  , LCDML_root_4      , 1  , "Program 1"          , LCDML_FUNC);
-  LCDML_DISP_add (7  , _LCDML_G1  , LCDML_root_4_1    , 1  , "P1 start"           , LCDML_FUNC);
-  LCDML_DISP_add (8  , _LCDML_G1  , LCDML_root_4_1    , 2  , "Settings"           , LCDML_FUNC);
-  LCDML_DISP_add (9  , _LCDML_G1  , LCDML_root_4_1_2  , 1  , "Warm"               , LCDML_FUNC);
-  LCDML_DISP_add (10 , _LCDML_G1  , LCDML_root_4_1_2  , 2  , "Long"               , LCDML_FUNC);
-  LCDML_DISP_add (11 , _LCDML_G1  , LCDML_root_4      , 2  , "Program 2"          , LCDML_FUNC_p2);  
-  LCDML_DISP_createMenu(_LCDML_DISP_cnt);
+  LCDML_DISP_add_use_ram      (0  , _LCDML_G1  , LCDML_root        , 1  , "Information"        , LCDML_FUNC_information);
+  LCDML_DISP_add_use_ram      (1  , _LCDML_G1  , LCDML_root        , 2  , "Time info"          , LCDML_FUNC_timer_info);
+  LCDML_DISP_add_use_ram      (2  , _LCDML_G1  , LCDML_root        , 3  , "Settings"           , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (3  , _LCDML_G1  , LCDML_root_3      , 1  , "Change value"       , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (4  , _LCDML_G1  , LCDML_root_3      , 2  , "Something"          , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (5  , _LCDML_G1  , LCDML_root        , 4  , "Program"            , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (6  , _LCDML_G1  , LCDML_root_4      , 1  , "Program 1"          , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (7  , _LCDML_G1  , LCDML_root_4_1    , 1  , "P1 start"           , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (8  , _LCDML_G1  , LCDML_root_4_1    , 2  , "Settings"           , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (9  , _LCDML_G1  , LCDML_root_4_1_2  , 1  , "Warm"               , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (10 , _LCDML_G1  , LCDML_root_4_1_2  , 2  , "Long"               , LCDML_FUNC);
+  LCDML_DISP_add_use_ram      (11 , _LCDML_G1  , LCDML_root_4      , 2  , "Program 2"          , LCDML_FUNC_p2);
+  LCDML_DISP_createMenu_use_ram(_LCDML_DISP_cnt);
+  //LCDML_DISP_createMenu(_LCDML_DISP_cnt);
+
+
+  
+
 
 
 // ********************************************************************* 
@@ -83,7 +89,14 @@
     LCDML_DISP_groupEnable(_LCDML_G1); // enable group 1
   
     // LCDMenu Setup
-    LCDML_setup(_LCDML_BACK_cnt);
+    LCDML_setup(_LCDML_BACK_cnt);  
+
+
+    // change content dynamic after initialisation
+    // can only used when "_LCDML_DISP_cfg_enable_use_ram_mode" is defined and "use_ram" menu items are used       
+    LCDML_DISP_dynText(1, "Test 12345678");   
+
+    
   }
 
 // *********************************************************************

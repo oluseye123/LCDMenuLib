@@ -40,7 +40,7 @@
 #ifndef LCDMenuLib_h
 #	define LCDMenuLib_h
 
-#	define _LCDML_VERSION							"LCDML v2.3.2"
+#	define _LCDML_VERSION							"LCDML v2.4.0"
 
 /* config */
 #	define _LCDML_DISP_cfg_cursor_deep				6		// save the last position of the cursor until layer xx
@@ -112,87 +112,89 @@
 //# =======================
 	class LCDMenuLib
 	{
-	private:
-		/* Menu Objects */
-		LCDMenu		*rootMenu;
-		LCDMenu		*curMenu;	
-		/* Saves the string position from menu elments in flash memory */
-		const char * const *flash_table;
-		/* display cols */
-		uint8_t		cols;
-		/* display rows */
-		uint8_t		rows;
-		/* save the last layer */
-		uint8_t		layer_save[_LCDML_DISP_cfg_cursor_deep];      // Speichert Cursor Position bis zur 8 Ebene
-		/* current corsor position */
-		uint8_t		curloc;			
-		/* current scroll position */
-		uint8_t		scroll;
-		/* save the last cursor position when a menue element is called */
-		uint8_t		cursor_pos;
-		/* how many childs exists on next layer */
-		uint8_t		child_cnt;
-		/* containes the current layer */
-		uint8_t		layer;
-		/* correction of the cursor position with hidden button */
-		uint8_t		curloc_correction();
-		/* activate the menu under the cursor */
-		void		goEnter();
-		/* set the cursor to the current position in the menu */
-		void		setCursor();
-		/* scroll the menu */
-		void		doScroll();
-		/* go to a menu element */
-		void		goMenu(LCDMenu &m);	
-		/* works with jump to element on globale function */
-		uint8_t		selectElementDirect(LCDMenu &p_m, uint8_t p_search);
-		/* how many childs exists on next layer */
-		uint8_t		countChilds();
-
-	public:
-		/* button variable */
-		uint8_t		button;
-		/* control bits */
-		uint8_t		control;
-		/* save group_hidden_status */
-		uint8_t		group_en;
-		/* save the last id from a menu element, when a menu elmend is called */
-		uint8_t		function;
+		private:
+			/* Menu Objects */
+			LCDMenu		*rootMenu;
+			LCDMenu		*curMenu;	
+			/* Saves the string position from menu elments in flash memory */
+			const char * const *flash_table;
+			/* display cols */
+			uint8_t		cols;
+			/* display rows */
+			uint8_t		rows;
+			/* save the last layer */
+			uint8_t		layer_save[_LCDML_DISP_cfg_cursor_deep];      // save cursor position for every layer		
+			/* current corsor position */
+			uint8_t		curloc;			
+			/* current scroll position */
+			uint8_t		scroll;
+			/* save the last cursor position when a menue element is called */
+			uint8_t		cursor_pos;
+			/* how many childs exists on next layer */
+			uint8_t		child_cnt;
+			/* containes the current layer */
+			uint8_t		layer;
+			/* save last parent */
+			uint8_t     parents[_LCDML_DISP_cfg_cursor_deep];
+			/* correction of the cursor position with hidden button */
+			uint8_t		curloc_correction();
+			/* activate the menu under the cursor */
+			void		goEnter();
+			/* set the cursor to the current position in the menu */
+			void		setCursor();
+			/* scroll the menu */
+			void		doScroll();
+			/* go to a menu element */
+			void		goMenu(LCDMenu &m);	
+			/* works with jump to element on globale function */
+			uint8_t		selectElementDirect(LCDMenu &p_m, uint8_t p_search);
+			/* how many childs exists on next layer */
+			uint8_t		countChilds();
 		
-		char content[_LCDML_DISP_cfg_max_rows][_LCDML_DISP_cfg_max_string_length];	
-		uint8_t content_id[_LCDML_DISP_cfg_max_rows];
-		
-		/* Constructor */
-		LCDMenuLib(LCDMenu &p_r, const char * const *p_flash_table, const uint8_t p_rows, const uint8_t p_cols);
 
-		/* Display the current menu on the lcd */
-		void		display();
-		/* jump to root menu */
-		void		goRoot();
-		/* move to the parent menu */
-		void		goBack();
-		/* update display content */
-		void 		display_update();
-		/* clear display content */
-		void		display_clear();
-		/* jump to menu element */
-		void		jumpToElement(uint8_t element);		
-		/* go in a menu element */
-		void		Button_enter();
-		/* go out of a menu element */
-		void		Button_quit();
-		/* navigate through the menu */
-		void		Button_udlr(uint8_t but);
-		/* get active function id */
-		uint8_t		getFunction();
-		/* get the layer where the cursor stands in the menu */
-		uint8_t		getLayer();
-		/* get the corrent cursor position */
-		uint8_t		getCursorPos();	
-		/* get the corrent cursor position */
-		uint8_t		getCursorPosAbs();	
-		/* get childs of an element */
-		uint8_t 	getChilds();		
+		public:
+			/* button variable */
+			uint8_t		button;
+			/* control bits */
+			uint8_t		control;
+			/* save group_hidden_status */
+			uint8_t		group_en;
+			/* save the last id from a menu element, when a menu elmend is called */
+			uint8_t		function;				
+			/* save content ids that are displayed currently */
+			uint8_t 	content_id[_LCDML_DISP_cfg_max_rows];		
+			/* Constructor */
+			LCDMenuLib(LCDMenu &p_r, const uint8_t p_rows, const uint8_t p_cols);
+			/* Display the current menu on the lcd */
+			void		display();
+			/* jump to root menu */
+			void		goRoot();
+			/* move to the parent menu */
+			void		goBack();
+			/* update display content */
+			void 		display_update();
+			/* clear display content */
+			void		display_clear();
+			/* jump to menu element */
+			void		jumpToElement(uint8_t element);		
+			/* go in a menu element */
+			void		Button_enter();
+			/* go out of a menu element */
+			void		Button_quit();
+			/* navigate through the menu */
+			void		Button_udlr(uint8_t but);
+			/* get active function id */
+			uint8_t		getFunction();
+			/* get the layer where the cursor stands in the menu */
+			uint8_t		getLayer();
+			/* get the corrent cursor position */
+			uint8_t		getCursorPos();	
+			/* get the corrent cursor position */
+			uint8_t		getCursorPosAbs();	
+			/* get childs of an element */
+			uint8_t 	getChilds();
+			/* get parent */
+			uint8_t 	getParentId();
 	};
 #endif
 

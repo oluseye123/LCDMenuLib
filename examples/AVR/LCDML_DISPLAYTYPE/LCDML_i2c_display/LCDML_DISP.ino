@@ -8,6 +8,10 @@
 void LCDML_lcd_menu_display()
 /* ******************************************************************** */
 {
+  // save the content text of every menu element
+  // _LCDML_DISP_cfg_max_string_length = 20 (default), can be changed in LCDMenuLib.h
+  char content_text[_LCDML_DISP_cfg_max_string_length];
+  
   // check if menu needs an update
   if (LCDML_DISP_update()) {   
     
@@ -39,7 +43,12 @@ void LCDML_lcd_menu_display()
 			//	break;
 		
 			default: // static content
-				lcd.print(LCDML.content[n]);
+				#if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))                      
+              lcd.print(LCDML_DISP_getRamContent(n));               
+            #else
+              LCDML_DISP_copyFlashContent(content_text, n); 
+              lcd.print(content_text);            
+            #endif  
 				break;				
 		} 
       }

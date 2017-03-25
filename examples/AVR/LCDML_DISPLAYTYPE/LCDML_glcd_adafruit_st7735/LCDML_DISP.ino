@@ -8,7 +8,10 @@
 void LCDML_lcd_menu_display()
 /* ******************************************************************** */
 {
-
+  // save the content text of every menu element
+  // _LCDML_DISP_cfg_max_string_length = 20 (default), can be changed in LCDMenuLib.h
+  char content_text[_LCDML_DISP_cfg_max_string_length];
+  
 	// clear lcd
 	display.fillScreen(_LCDML_ADAFRUIT_BACKGROUND_COLOR);
 	// set text color / Textfarbe setzen
@@ -44,8 +47,13 @@ void LCDML_lcd_menu_display()
 			//	break;
 		
 			default: // static content
-				display.setCursor(0, _LCDML_ADAFRUIT_FONT_H * (n));
-				display.println(LCDML.content[n]);
+				display.setCursor(0, _LCDML_ADAFRUIT_FONT_H * (n));				
+				#if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))                      
+              display.println(LCDML_DISP_getRamContent(n));               
+            #else
+              LCDML_DISP_copyFlashContent(content_text, n); 
+              display.println(content_text);            
+            #endif
 				break;				
 		}
 	          

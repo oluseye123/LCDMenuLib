@@ -56,13 +56,12 @@
 // @return
 //		---
 // ********************************************************************
-LCDMenuLib::LCDMenuLib(LCDMenu &p_r, const char * const *p_flash_table, const uint8_t p_rows, const uint8_t p_cols)
+LCDMenuLib::LCDMenuLib(LCDMenu &p_r, const uint8_t p_rows, const uint8_t p_cols)
 // ********************************************************************
 {
 	// initialisation
     rootMenu        = &p_r;
     curMenu         = rootMenu;
-	flash_table     = p_flash_table;
 	control			= 0; 
     cursor_pos      = 0;
     layer           = 0;
@@ -299,7 +298,7 @@ void	LCDMenuLib::goMenu(LCDMenu &m)
 {
 	//declare variables
 	int diff;
-    scroll = 0;
+    scroll = 0;	
 
 	//set current menu object	
 	curMenu=&m;	
@@ -307,8 +306,12 @@ void	LCDMenuLib::goMenu(LCDMenu &m)
 	if(layer < _LCDML_DISP_cfg_cursor_deep) { //check layer deep		
 		if(bitRead(control, _LCDML_control_menu_back) == 0) { //check back button		
 			//go into the next layer
-			layer_save[layer] = curloc;
-			layer++;		
+			layer_save[layer] = curloc;			
+			layer++;			
+			// save parent id
+			if(layer < _LCDML_DISP_cfg_cursor_deep) {
+				parents[layer] = curMenu->name;
+			}			
 			curloc = 0;
 		} 
 		else {
@@ -371,9 +374,9 @@ uint8_t    LCDMenuLib::countChilds()
 void LCDMenuLib::display_clear()
 {		
 	for(uint8_t n=0; n<_LCDML_DISP_cfg_max_rows;n++) {
-		for(uint8_t nc=0; nc<_LCDML_DISP_cfg_max_string_length;nc++) {
-			content[n][nc] = ' ';			
-		}
+		//for(uint8_t nc=0; nc<_LCDML_DISP_cfg_max_string_length;nc++) {
+		//	content[n][nc] = ' ';			
+		//}
 		content_id[n] = _LCDML_NO_FUNC;
 	}	
 }
@@ -403,11 +406,13 @@ void	LCDMenuLib::display()
 			do
 			{				
 				if (bitRead(group_en, tmp->disp)) {	
+					/*
 					#if defined ( ESP8266 )
 						strcpy_P(content[i-scroll], (char*)(flash_table[tmp->name]));
 					#else
 						strcpy_P(content[i-scroll], (char*)pgm_read_word(&(flash_table[tmp->name])));
 					#endif
+					*/
 					content_id[i-scroll] = tmp->name;
 					i++;					
 				}
@@ -592,9 +597,22 @@ uint8_t	LCDMenuLib::getCursorPosAbs()
 	return (curloc + curloc_correction()); //return the current cursor position
 }
 
+
 uint8_t LCDMenuLib::getChilds()
 {
 	return child_cnt+1;
+}
+
+
+uint8_t LCDMenuLib::getParentId()
+{
+	if(layer > 0 && layer < _LCDML_DISP_cfg_cursor_deep) {
+		return parents[layer];
+    } else {
+		return _LCDML_NO_FUNC;
+	}
+	
+	
 }
 
 
