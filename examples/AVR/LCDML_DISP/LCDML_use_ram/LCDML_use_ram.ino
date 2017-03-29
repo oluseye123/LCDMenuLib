@@ -1,18 +1,19 @@
 // ============================================================                                                            
-// Example:     LCDML_serialmonitor                          
+// Example:     LCDML: use ram                         
 // ============================================================
 // Autor:       Nils Feldkämper
 // Last update: 08.01.2017
 // License:     MIT                                     
 // ============================================================ 
 // Descripton: 
-// This example shows how the menu works without any LCD.
-// The output is print in serial console. This example can be 
-// extended with network functions to print this menu with telnet 
-// or other protocols.
+// This example shows how the menu works with a menu wich only 
+// use ram for saving the menu items. This example is for controller
+// with enogh ram. All menu item texts can be changed in the program 
+// at runtime.
 // ============================================================ 
 
   // include libs
+  #include <LiquidCrystal.h>
   #include <LCDMenuLib.h>
   
   // lib config
@@ -27,6 +28,10 @@
   #define _LCDML_DISP_cols             20
   #define _LCDML_DISP_rows             4  
 
+  // lcd object
+  // liquid crystal needs (rs, e, dat4, dat5, dat6, dat7)
+  LiquidCrystal lcd(4,5,6,7,8,9);
+  
 
 // *********************************************************************
 // LCDML MENU/DISP

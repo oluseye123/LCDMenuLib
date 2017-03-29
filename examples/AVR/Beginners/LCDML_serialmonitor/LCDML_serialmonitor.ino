@@ -17,6 +17,13 @@
   
   // lib config
   #define _LCDML_DISP_cfg_button_press_time          200    // button press time in ms
+  
+  // only for testing
+  #define _LCDML_DISP_parent_id						 0		// enable with "1"
+															// display the id of the parent element
+															// this function only works if the layer is > 0
+															// the code for this ca be finded on LCDML_DISP Tab on 
+															// line 25 ff
  
 
 // ********************************************************************* 

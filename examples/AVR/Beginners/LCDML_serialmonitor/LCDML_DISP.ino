@@ -22,11 +22,20 @@ void LCDML_lcd_menu_display()
       // clear menu
       LCDML_lcd_menu_clear();
 
-       // Display parent id, if needed
-      if(LCDML.getLayer() > 0) {
+      // Display parent id, if needed
+	  // if you need a special parent id for example from layer 2 then call: 
+	  // LCDML.getParentId(2)
+	  // if you need the text for this id, call
+	  //   char content_text[_LCDML_DISP_cfg_max_string_length]; 
+	  //   LCDML_DISP_copyFlashContent(content_text, LCDML.getParentId()); 
+      //   Serial.print(content_text);
+	  //  
+      #if (_LCDML_DISP_parent_id == 1)
+	  if(LCDML.getLayer() > 0) {
         Serial.print("Parent ID:");
         Serial.println(LCDML.getParentId());
       }
+	  #endif
 
       Serial.println(F("==========================================="));
       Serial.println(F("================  Menu ===================="));

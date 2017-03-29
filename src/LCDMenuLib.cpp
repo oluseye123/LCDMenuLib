@@ -610,9 +610,16 @@ uint8_t LCDMenuLib::getParentId()
 		return parents[layer];
     } else {
 		return _LCDML_NO_FUNC;
-	}
-	
-	
+	}	
+}
+
+uint8_t LCDMenuLib::getParentId(uint8_t p_layer)
+{
+	if(p_layer > 0 && p_layer < _LCDML_DISP_cfg_cursor_deep) {
+		return parents[p_layer];
+    } else {
+		return _LCDML_NO_FUNC;
+	}	
 }
 
 

@@ -13,6 +13,7 @@
 // (4) Control with Keypad
 // (5) Control with an ir remote
 // (6) Control with a youstick
+// (7) Control over I2C PCF8574
 // *********************************************************************
 
 #define _LCDML_CONTROL_cfg      0  
@@ -389,8 +390,8 @@ void LCDML_CONTROL_loop()
 
 
 
-/ *********************************************************************
-// *************** (6) CONTROL OVER JOYSTICK *********************
+// *********************************************************************
+// *************** (6) CONTROL OVER JOYSTICK ***************************
 // *********************************************************************
 #elif(_LCDML_CONTROL_cfg == 6)
 	// settings
@@ -437,6 +438,64 @@ void LCDML_CONTROL_loop()
 		// lock at the examle LCDML_back_button
 
 	}
+}
+// *********************************************************************
+// ******************************* END *********************************
+// *********************************************************************
+
+// *********************************************************************
+// *************** (7) CONTROL OVER PCF8574 ****************************
+// *********************************************************************
+
+#elif(_LCDML_CONTROL_cfg == 7)
+
+  #define PCF8574_1 0x26 // I2C Adresse für die Taster
+
+  #define PCF8574_Pin0 254
+  #define PCF8574_Pin1 253
+  #define PCF8574_Pin2 251
+  #define PCF8574_Pin3 247
+  #define PCF8574_Pin4 239
+  #define PCF8574_Pin5 223
+  #define PCF8574_Pin6 191
+  #define PCF8574_Pin7 127
+
+  // Hier die PCF8574 Pins angeben
+  #define _LCDML_CONTROL_PCF8574_enable_quit    0
+  #define _LCDML_CONTROL_PCF8574_enable_lr      0
+  #define _LCDML_CONTROL_PCF8574_enter          PCF8574_Pin1
+  #define _LCDML_CONTROL_PCF8574_up             PCF8574_Pin2
+  #define _LCDML_CONTROL_PCF8574_down           PCF8574_Pin0
+  #define _LCDML_CONTROL_PCF8574_left           PCF8574_Pin2
+  #define _LCDML_CONTROL_PCF8574l_right         PCF8574_Pin2
+  #define _LCDML_CONTROL_PCF8574_quit           PCF8574_Pin2
+// **********************************************************
+// setup * loop
+void LCDML_CONTROL_setup(){}
+void LCDML_CONTROL_loop()
+{     
+  if((millis() - g_LCDML_DISP_press_time) >= _LCDML_DISP_cfg_button_press_time) {
+      g_LCDML_DISP_press_time = millis(); // reset press time
+
+    Wire.write(0xff); // Alle Pins als Eingang?
+    Wire.requestFrom(PCF8574_1, 1);
+   if (Wire.available()) {
+    switch (Wire.read())
+    {
+      case _LCDML_CONTROL_PCF8574_enter:  LCDML_BUTTON_enter(); break;
+      case _LCDML_CONTROL_PCF8574_up:     LCDML_BUTTON_up();    break;
+      case _LCDML_CONTROL_PCF8574_down:   LCDML_BUTTON_down();  break;
+       #if(_LCDML_CONTROL_PCF8574_enable_quit == 1)
+      case _LCDML_CONTROL_PCF8574_left:   LCDML_BUTTON_left();  break;
+    #endif
+       #if(_LCDML_CONTROL_PCF8574_enable_lr   == 1)
+      case _LCDML_CONTROL_PCF8574l_right: LCDML_BUTTON_right(); break;
+      case _LCDML_CONTROL_PCF8574_quit:   LCDML_BUTTON_quit();  break;
+    #endif 
+      default: break;
+    }
+  }
+ }
 }
 // *********************************************************************
 // ******************************* END *********************************

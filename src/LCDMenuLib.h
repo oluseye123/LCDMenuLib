@@ -195,6 +195,7 @@
 			uint8_t 	getChilds();
 			/* get parent */
 			uint8_t 	getParentId();
+			uint8_t 	getParentId(uint8_t p_layer);
 	};
 #endif
 
