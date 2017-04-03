@@ -38,27 +38,27 @@ void LCDML_lcd_menu_display()
         if (n == gCP) {
           u8g.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_cur_space_before, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1),  _LCDML_DISP_cursor_char);
         }
-		
-    		// set content
-    		// with content id you can add special content to your static menu or replace the content
-    		// the content_id contains the id wich is set on main tab for a menuitem
+        
+            // set content
+            // with content id you can add special content to your static menu or replace the content
+            // the content_id contains the id wich is set on main tab for a menuitem
         switch(LCDML.content_id[n])
-    		{		 
-    			//case 0:
-    			//	u8g.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), "var_datetime"); // or datetime or other things
-    			//	break;
-    		
-    			default: // static content
-				#if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))
-				u8g.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), LCDML_DISP_getRamContent(n));
-    				              
+            {         
+                //case 0:
+                //    u8g.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), "var_datetime"); // or datetime or other things
+                //    break;
+            
+                default: // static content
+                #if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))
+                u8g.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), LCDML_DISP_getRamContent(n));
+                                  
             #else
               LCDML_DISP_copyFlashContent(content_text, n);             
-			  u8g.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), content_text);
-    				
+              u8g.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), content_text);
+                    
             #endif  
-    				break;				
-    		}
+                    break;                
+            }
       }
 
       // drow a box around the menu

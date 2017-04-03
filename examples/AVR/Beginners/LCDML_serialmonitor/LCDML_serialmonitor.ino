@@ -19,11 +19,11 @@
   #define _LCDML_DISP_cfg_button_press_time          200    // button press time in ms
   
   // only for testing
-  #define _LCDML_DISP_parent_id						 0		// enable with "1"
-															// display the id of the parent element
-															// this function only works if the layer is > 0
-															// the code for this ca be finded on LCDML_DISP Tab on 
-															// line 25 ff
+  #define _LCDML_DISP_parent_id                         0        // enable with "1"
+                                                            // display the id of the parent element
+                                                            // this function only works if the layer is > 0
+                                                            // the code for this ca be finded on LCDML_DISP Tab on 
+                                                            // line 25 ff
  
 
 // ********************************************************************* 
@@ -46,7 +46,7 @@
   // LCDML_root_X      => layer 1 
   // LCDML_root_X_X    => layer 2 
   // LCDML_root_X_X_X  => layer 3 
-  // LCDML_root_... 	 => layer ... 
+  // LCDML_root_...      => layer ... 
   
   // LCDMenuLib_add(id, group, prev_layer_element, new_element_num, lang_char_array, callback_function)
   LCDML_DISP_init(_LCDML_DISP_cnt);

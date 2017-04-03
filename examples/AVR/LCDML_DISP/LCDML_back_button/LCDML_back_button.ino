@@ -56,7 +56,7 @@
   // LCDML_root_X      => layer 1 
   // LCDML_root_X_X    => layer 2 
   // LCDML_root_X_X_X  => layer 3 
-  // LCDML_root_... 	 => layer ... 
+  // LCDML_root_...      => layer ... 
   
   // LCDMenuLib_add(id, group, prev_layer_element, new_element_num, lang_char_array, callback_function)
   LCDML_DISP_init(_LCDML_DISP_cnt);
@@ -101,8 +101,8 @@
     while(!Serial);                    // wait until serial ready
     Serial.begin(9600);                // start serial    
     Serial.println(F(_LCDML_VERSION)); // only for examples
-	
-	// LCD Begin
+    
+    // LCD Begin
     lcd.begin(_LCDML_DISP_cols,_LCDML_DISP_rows);  
     // set special chars for scrollbar
     lcd.createChar(0, (uint8_t*)scroll_bar[0]);

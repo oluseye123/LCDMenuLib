@@ -49,7 +49,7 @@
   // LCDML_root_X      => layer 1 
   // LCDML_root_X_X    => layer 2 
   // LCDML_root_X_X_X  => layer 3 
-  // LCDML_root_... 	 => layer ... 
+  // LCDML_root_...      => layer ... 
   
   // LCDMenuLib_add     (id, group, prev_layer_element, new_element_num, lang_char_array, callback_function)
   // LCDMenuLib_addMenu (id, group, prev_layer_element, new_element_num, lang_char_array)

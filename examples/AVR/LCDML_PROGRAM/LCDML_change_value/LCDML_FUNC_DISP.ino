@@ -101,7 +101,7 @@
     // utility function for digital clock display: prints preceding colon and leading 0  
     if(digits < 10) {
       lcd.print('0');
-	}
+    }
     lcd.print(digits);
   }
 // ===============================================

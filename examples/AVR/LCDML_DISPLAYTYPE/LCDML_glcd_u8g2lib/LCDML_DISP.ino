@@ -48,11 +48,11 @@ void LCDML_lcd_menu_display()
           //  break;
         
           default: // static content
-			#if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))
-				u8g2.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), LCDML_DISP_getRamContent(n));
+            #if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))
+                u8g2.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), LCDML_DISP_getRamContent(n));
             #else
               LCDML_DISP_copyFlashContent(content_text, n);
-			  u8g2.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), content_text);
+              u8g2.drawStr( _LCDML_DISP_box_x0+_LCDML_DISP_font_w + _LCDML_DISP_cur_space_behind, _LCDML_DISP_box_y0 + _LCDML_DISP_font_h * (n + 1), content_text);
             #endif
             break;        
         }

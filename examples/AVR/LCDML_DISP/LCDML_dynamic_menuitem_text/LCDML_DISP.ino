@@ -33,25 +33,25 @@ void LCDML_lcd_menu_display()
       {
         // set cursor
         lcd.setCursor(1, n);
-		// set content
-		// with content id you can add special content to your static menu or replace the content
-		// the content_id contains the id wich is set on main tab for a menuitem
+        // set content
+        // with content id you can add special content to your static menu or replace the content
+        // the content_id contains the id wich is set on main tab for a menuitem
         switch(LCDML.content_id[n])
-		{		 
-			case 0:
-				lcd.print("Sec counter: "); // or datetime or other things
-				lcd.print(g_sec_counter);
-				break;
-		
-			default: // static content
-				#if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))                      
-				  lcd.print(LCDML_DISP_getRamContent(n));               
-				#else
-				  LCDML_DISP_copyFlashContent(content_text, n); 
-				  lcd.print(content_text);            
-				#endif    	
-				break;				
-		} 
+        {         
+            case 0:
+                lcd.print("Sec counter: "); // or datetime or other things
+                lcd.print(g_sec_counter);
+                break;
+        
+            default: // static content
+                #if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))                      
+                  lcd.print(LCDML_DISP_getRamContent(n));               
+                #else
+                  LCDML_DISP_copyFlashContent(content_text, n); 
+                  lcd.print(content_text);            
+                #endif        
+                break;                
+        } 
       }
     }
 

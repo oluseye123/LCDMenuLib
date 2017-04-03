@@ -42,16 +42,16 @@ void LCDML_lcd_menu_display()
           Serial.print(F("( ) "));
         }                
         // print content
-    		// with content id you can add special content to your static menu or replace the content
-    		// the content_id contains the id wich is set on main tab for a menuitem
+            // with content id you can add special content to your static menu or replace the content
+            // the content_id contains the id wich is set on main tab for a menuitem
         switch(LCDML.content_id[n])
-    		{		 
-    			//case 0:
-    			//	Serial.print("special"); // or datetime or other things
-    			//	break;
+            {         
+                //case 0:
+                //    Serial.print("special"); // or datetime or other things
+                //    break;
          
-    		
-    			default: // static content
+            
+                default: // static content
              
              #if (defined ( ESP8266 ) || defined (_LCDML_DISP_cfg_enable_use_ram_mode ))                      
                 Serial.print(LCDML_DISP_getRamContent(n));               
@@ -59,10 +59,10 @@ void LCDML_lcd_menu_display()
                 LCDML_DISP_copyFlashContent(content_text, n); 
                 Serial.print(content_text);            
               #endif
-    				
-    				break;				
-    		}
-    		Serial.println();
+                    
+                    break;                
+            }
+            Serial.println();
       }
     }   
   }
