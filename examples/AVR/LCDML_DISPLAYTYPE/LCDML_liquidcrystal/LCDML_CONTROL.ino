@@ -230,6 +230,7 @@ void LCDML_CONTROL_loop()
   #define _LCDML_CONTROL_encoder_pin_button      12 // pin taster
   #define _LCDML_CONTROL_encoder_high_active     0  // (0 = low active (pullup), 1 = high active (pulldown)) button
                                                       // // http://playground.arduino.cc/CommonTopics/PullUpDownResistor
+ #define _LCDML_CONTROL_encoder_pin_button_quit  13 //quit button  
 // global defines
   uint8_t  g_LCDML_CONTROL_encoder_t_prev = 0;
   uint8_t  g_LCDML_CONTROL_encoder_a_prev = 0;
@@ -245,6 +246,7 @@ void LCDML_CONTROL_setup()
   pinMode(_LCDML_CONTROL_encoder_pin_a      , INPUT_PULLUP);
   pinMode(_LCDML_CONTROL_encoder_pin_b      , INPUT_PULLUP);
   pinMode(_LCDML_CONTROL_encoder_pin_button , INPUT_PULLUP); 
+  pinMode(_LCDML_CONTROL_encoder_pin_button_quit , INPUT_PULLUP); 
 }
 // *********************************************************************
 // loop
@@ -254,6 +256,7 @@ void LCDML_CONTROL_loop()
   unsigned char a = digitalRead(_LCDML_CONTROL_encoder_pin_a);
   unsigned char b = digitalRead(_LCDML_CONTROL_encoder_pin_b);
   unsigned char t = digitalRead(_LCDML_CONTROL_encoder_pin_button);
+	unsigned char q = digitalRead(_LCDML_CONTROL_encoder_pin_button_quit);
   
   // change button status if high and low active are switched
   if (_LCDML_CONTROL_encoder_high_active == 1) {
@@ -279,6 +282,18 @@ void LCDML_CONTROL_loop()
       else {
         g_LCDML_CONTROL_encoder_t_prev = 0;
       }
+      /* quit button */
+
+ // press button once for quit
+      if (!q && g_LCDML_CONTROL_encoder_t_prev == 0) {          
+        LCDML_BUTTON_quit();         
+      } 
+      else {
+        g_LCDML_CONTROL_encoder_t_prev = 0;
+      }
+
+   /* quit button */
+    
     }      
   }
   g_LCDML_CONTROL_encoder_a_prev = a;  // set new encoder status 
